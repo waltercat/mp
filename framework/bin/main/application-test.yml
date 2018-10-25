@@ -1,0 +1,20 @@
+ #测试环境配置 test
+ logging:
+  pattern:
+    console: "%clr(%d{HH:mm:ss.SSS}){yellow} %clr(%contextName [%thread]){green} %clr(%-5level){red} %clr(%logger{36} - %msg%n){blue}"
+  file: app.log  
+   
+ pagehelper:
+  helper-dialect: sqlite
+  reasonable: true
+  support-methods-arguments: true
+  params: count=countSql
+  
+ spring:   
+  security:
+    user:
+      name: test
+      password: password01!      
+  datasource:     
+    driver-class-name: org.sqlite.SQLiteDataSource
+    url: jdbc:sqlite::resource:db/example.db

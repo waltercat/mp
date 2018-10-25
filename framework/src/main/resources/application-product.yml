@@ -1,0 +1,14 @@
+ #生产环境配置
+ logging:
+  file: app.log  
+   
+ pagehelper:
+  helper-dialect: sqlite
+  reasonable: true
+  support-methods-arguments: true
+  params: count=countSql
+  
+ spring:
+  datasource:     
+    driver-class-name: org.sqlite.SQLiteDataSource
+    url: jdbc:sqlite::resource:db/example.db    

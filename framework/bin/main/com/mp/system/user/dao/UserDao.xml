@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.aas.system.user.dao.UserDao" >
+  <resultMap id="BaseResultMap" type="com.aas.system.user.domain.UserModel" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="f_user_code" property="userCode" jdbcType="VARCHAR" />
+    <result column="f_user_name" property="userName" jdbcType="VARCHAR" />
+    <result column="f_login_name" property="loginName" jdbcType="VARCHAR" />
+    <result column="f_pwd" property="password" jdbcType="VARCHAR" />
+    <result column="f_locked" property="lockedOK" jdbcType="INTEGER" />
+    <result column="f_org_id" property="orgID" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, f_user_code, f_login_name,f_user_name,f_pwd,f_locked,f_org_id
+  </sql>
+  <!-- 按ID加载用户 -->
+  <select id="loadUser" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_user
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <!-- 条件查询用户 -->
+  <select id="queryUsers" resultMap="BaseResultMap" parameterType="com.aas.system.user.domain.UserModel" >
+    select
+    <include refid="Base_Column_List" />
+    from t_user
+    where 1=1
+    <if test="loginName != null">
+    	AND f_login_name=#{loginName}
+    </if>
+    
+    <if test="password != null">
+    	AND f_pwd=#{password}
+    </if>
+    
+     <if test="userName != null">
+    	AND f_user_name like #{userName}
+    </if>
+    
+    <if test="orgID != null and orgID !=0">
+    	AND f_org_id=#{orgID}
+    </if>
+    
+  </select>
+  <!-- 按ID删除机构 -->
+  <delete id="delUser" parameterType="long" >
+    delete from t_user where id =#{id}
+  </delete>
+  
+  <delete id="delUserByOrg" parameterType="java.lang.String" >
+    delete from t_user  tuser left join t_org torg on tuser.f_org_id = torg.id where torg.f_org_code like #{orgCode} 
+  </delete>
+  
+  <!-- 更新用户信息 -->
+  <update id="updateUser" parameterType="com.aas.system.user.domain.UserModel" >
+  	update t_user 
+  	set f_user_code=#{userCode,jdbcType=VARCHAR},
+  	f_user_name=#{userName,jdbcType=VARCHAR},
+  	f_login_name=#{loginName,jdbcType=VARCHAR},
+  	f_pwd=#{password,jdbcType=VARCHAR},
+  	f_locked=#{lockedOK,jdbcType=INTEGER},
+  	f_org_id=#{orgID,jdbcType=INTEGER}
+  	where id= #{id,jdbcType=INTEGER}
+  </update>
+  
+  <!-- 保存用户信息 -->
+  <insert id="saveUser"   parameterType="com.aas.system.user.domain.UserModel" >
+    insert into t_user (id, f_user_code, f_login_name,f_user_name,f_pwd,f_locked,f_org_id)
+    values (#{id,jdbcType=INTEGER}, 
+    #{userCode,jdbcType=VARCHAR},
+    #{userName,jdbcType=VARCHAR},
+    #{loginName,jdbcType=VARCHAR},
+    #{password,jdbcType=VARCHAR},
+    #{lockedOK,jdbcType=INTEGER},
+    #{orgID,jdbcType=INTEGER})
+  </insert>  
+</mapper>
