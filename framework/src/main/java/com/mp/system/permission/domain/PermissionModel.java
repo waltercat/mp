@@ -2,14 +2,24 @@ package com.mp.system.permission.domain;
 
 import java.io.Serializable;
 
+import com.mp.utils.CommonUtil;
+
 public class PermissionModel implements Serializable {
 	    
-	public int getId() {
+	public long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
+	}
+
+	public long getParentID() {
+		return parentID;
+	}
+
+	public void setParentID(long parentID) {
+		this.parentID = parentID;
 	}
 
 	public String getPermissionCode() {
@@ -67,10 +77,29 @@ public class PermissionModel implements Serializable {
 	public void setOrder(int order) {
 		this.order = order;
 	}
+	
+	public boolean validateOK() {
+		
+		return !( CommonUtil.isEmpty(permissionCode) || CommonUtil.isEmpty(permissionName) || CommonUtil.isEmpty(permissionURL) );
+	}
+	
+	
+
+	@Override
+	public String toString() {
+		return "PermissionModel [id=" + id + ", parentID=" + parentID + ", permissionCode=" + permissionCode
+				+ ", permissionName=" + permissionName + ", permissionURL=" + permissionURL + ", icon=" + icon
+				+ ", permissionType=" + permissionType + ", permissionStatus=" + permissionStatus + ", order=" + order
+				+ "]";
+	}
+
+
 
 	private static final long serialVersionUID = -3515465085225832272L;
 	
-	private int id;
+	private long id;
+	
+	private long parentID;
 	
 	//权限编码，采用2,2,2,2,2,2，规则。
 	private String permissionCode;
@@ -81,10 +110,10 @@ public class PermissionModel implements Serializable {
 	
 	private String icon;
 	
-	//权限类型，0=菜单权限 1=按钮权限 2=数据权限（暂不实现）
+	//权限类型，1=菜单权限 2=按钮权限 3=数据权限（暂不实现）
 	private int permissionType;
 	
-	//权限状态，0=不可用，1=可用
+	//权限状态，1=可用, 2=不可用
 	private int permissionStatus;
 	
 	//排序。只对菜单权限有效。

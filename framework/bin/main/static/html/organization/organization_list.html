@@ -1,0 +1,53 @@
+﻿<section class="Hui-article-box">
+	<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 组织机构管理 <span class="c-gray en">&gt;</span> 组织机构列表<a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+	<div class="Hui-article">
+		<article class="cl pd-20">
+			<div class="pos-a" style="width:150px;left:0;top:0; bottom:0; height:100%; border-right:1px solid #e5e5e5; background-color:#f5f5f5">
+				<ul id="treeDemo" class="ztree">
+				</ul>
+			</div>
+			<div style="margin-left:150px;">
+				<div class="text-c">
+						<input type="text" class="input-text" style="width:250px" placeholder="输入机构编码" id="search_orgCodeID" name="search_orgCodeName">
+						<input type="text" class="input-text" style="width:250px" placeholder="输入机构名称" id="search_orgNameID" name="search_orgName">
+						<button type="submit" class="btn btn-success radius" id="btn_search_id" name="btn_search_name" onclick="javascript:curOrg.queryOrgs();">
+							<i class="Hui-iconfont">&#xe665;</i> 查询</button>				
+					</div>
+					<div class="cl pd-5 bg-1 bk-gray mt-20"> 
+						<span class="l">
+							<a href="javascript:;" onclick="curOrg.delOrgByCode(this,curOrg.getCheckedOrg());" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a> 
+							<a href="javascript:;" onclick="curOrg.org_add('添加机构','html/organization/organization_add.html','500','300')" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe600;</i> 添加机构</a>
+							</span> 
+						<span class="r" style="display:none;">共有数据：<strong id="totalSizeID">88</strong> 条</span> </div>
+					<div class="mt-20">
+						<table id="table_list_id" class="table table-border table-bordered table-hover table-bg table-sort">
+							<thead>
+								<tr class="text-c">
+									<th width="25"><input type="checkbox" name="" value=""  onClick="javascript:curOrg.checkAll(this);">全选</th>
+									<th width="40">ID</th>
+									<th width="150">机构编码</th>
+									<th width="200">机构名称</th>							
+									<th width="50">操作</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr class="text-c">
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td class="td-manage"></tr>
+							</tbody>
+						</table>
+					</div>
+			</div>
+		</article>
+	</div>
+</section>
+
+<!--请在下方写此页面业务相关的脚本--> 
+<script type="text/javascript" src="../lib/My97DatePicker/4.8/WdatePicker.js"></script>  
+<script type="text/javascript" src="../lib/datatables/1.10.0/jquery.dataTables.min.js"></script> 
+<script type="text/javascript" src="../lib/laypage/1.2/laypage.js"></script>
+<script type="text/javascript" src="../lib/zTree/v3/js/jquery.ztree.all-3.5.min.js"></script>
+<script type="text/javascript" src="../scripts/organization.js"></script>

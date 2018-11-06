@@ -5,19 +5,37 @@
  */
 var curPermission = {
 		
-		permissionJSON : [{id:'01',name:'资讯管理',icon:'&#xe616',url:'',children:[]},
-			{id:'01',name:'产品管理',icon:'&#xe616',url:'',children:[{id:'0101',name:'品牌管理',icon:'',url:'article-list.html'},{id:'0101',name:'品牌管理',icon:'',url:'article-list.html'},{id:'0101',name:'品牌管理',icon:'',url:'article-list.html'}]},
-			{id:'01',name:'资讯管理',icon:'&#xe616',url:'',children:[{id:'0101',name:'资讯管理',icon:'',url:'article-list.html'}]},
-			{id:'01',name:'资讯管理',icon:'&#xe616',url:'',children:[{id:'0101',name:'资讯管理',icon:'',url:'article-list.html'}]}],
+		getPermissionsForTreeURL : '/system/permission/listPermissionForTree',
+		
+		permissionJSON : [],
 		
 		showPermission : function(){
 			
 			var permission = $('#permissionID');
 			
-			for( i = 0 ; i < curPermission.permissionJSON.length ; i++ ){
-				
-				permission.append( curPermission.createPermission( curPermission.permissionJSON[i] ) );
-			}
+			//listPermissionForTree
+			
+			$.ajax({
+				url : curPermission.getPermissionsForTreeURL,
+				async : false,
+				type:'get',
+				contentType:'application/json',
+				dataType:'json',
+				success : function( permissionJSON ){
+					
+					curPermission.permissionJSON = permissionJSON;
+					
+					for( i = 0 ; i < curPermission.permissionJSON.children.length ; i++ ){
+						
+						permission.append( curPermission.createPermission( curPermission.permissionJSON.children[i] ) );
+					}
+					
+				},
+				error : function( errorJSON){
+					
+					window.location.href="/html/login.html";
+				}
+			});
 		},
 		
 		createPermission : function( permission){

@@ -23,13 +23,6 @@ import com.mp.utils.CommonUtil;
     */
 
 public class OrganizationModel implements Serializable {
-	
-	public OrganizationModel(long id, String orgCode, String orgName) {
-		super();
-		this.id = id;
-		this.orgCode = orgCode;
-		this.orgName = orgName;
-	}
 
 	public long getId() {
 		return id;
@@ -37,6 +30,22 @@ public class OrganizationModel implements Serializable {
 
 	public void setId(long id) {
 		this.id = id;
+	}
+
+	public long getParentID() {
+		return parentID;
+	}
+
+	public void setParentID(long parentID) {
+		this.parentID = parentID;
+	}
+
+	public String getParentCode() {
+		return parentCode;
+	}
+
+	public void setParentCode(String parentCode) {
+		this.parentCode = parentCode;
 	}
 
 	public String getOrgCode() {
@@ -69,6 +78,11 @@ public class OrganizationModel implements Serializable {
 
 	//数据主键
 	private long id;
+	
+	private long parentID;
+	
+	//父级机构编码。
+	private String parentCode;
 	
 	/**
 	 * 组织机构编码

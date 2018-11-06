@@ -1,0 +1,123 @@
+<!--_meta 作为公共模版分离出去-->
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<link rel="Bookmark" href="favicon.ico" >
+<link rel="Shortcut Icon" href="favicon.ico" />
+<!--[if lt IE 9]>
+<script type="text/javascript" src="../lib/html5.js"></script>
+<script type="text/javascript" src="../lib/respond.min.js"></script>
+<![endif]-->
+<link rel="stylesheet" type="text/css" href="../../h-ui/css/H-ui.min.css" />
+<link rel="stylesheet" type="text/css" href="../../h-ui.admin/css/H-ui.admin.css" />
+<link rel="stylesheet" type="text/css" href="../../lib/Hui-iconfont/1.0.8/iconfont.css" />
+<link rel="stylesheet" type="text/css" href="../../h-ui.admin/skin/default/skin.css" id="skin" />
+<link rel="stylesheet" type="text/css" href="../../h-ui.admin/css/style.css" />
+<link rel="stylesheet" href="../../lib/zTree/v3/css/zTreeStyle/zTreeStyle.css" type="text/css">
+<!--[if IE 6]>
+<script type="text/javascript" src="http://lib.h-ui.net/DD_belatedPNG_0.0.8a-min.js" ></script>
+<script>DD_belatedPNG.fix('*');</script><![endif]-->
+<!--/meta 作为公共模版分离出去-->
+
+<title>在线营销平台-业务管理系统</title>
+<meta name="keywords" content="在线营销平台-业务管理系统">
+<meta name="description" content="在线营销平台-业务管理系统">
+</head>
+<body>
+<article class="cl pd-20">
+	<form action="" method="post" class="form form-horizontal" id="form-admin-add">
+		<div class="row cl" style="display:none;">
+			<label class="form-label col-xs-4 col-sm-3">上级机构：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="hidden" class="input-text"  readonly value="" placeholder="" id="parentOrgID" name="parentOrgID">
+				<input type="text" class="input-text"  readonly value="" placeholder="" id="parentOrgName" name="parentOrgName">
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>机构编码：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text" readonly value="" placeholder="请输入机构编码" id="orgCode" name=""orgCode"">
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>机构名称：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text" autocomplete="off"  placeholder="请输入机构名称" id="orgName" name="orgName">
+			</div>
+		</div>
+		<div class="row cl">
+			<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
+				<input class="btn btn-primary radius" type="submit"  onclick="f_save();" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
+			</div>
+		</div>
+	</form>
+</article>
+
+<!--_footer 作为公共模版分离出去-->
+<script type="text/javascript" src="../../lib/jquery/1.9.1/jquery.min.js"></script> 
+<script type="text/javascript" src="../../lib/layer/2.4/layer.js"></script> 
+ 
+<script type="text/javascript" src="../../lib/jquery.validation/1.14.0/jquery.validate.js"></script> 
+<script type="text/javascript" src="../../lib/jquery.validation/1.14.0/validate-methods.js"></script> 
+<script type="text/javascript" src="../../lib/jquery.validation/1.14.0/messages_zh.js"></script> 
+<script type="text/javascript" src="../../h-ui/js/H-ui.js"></script> 
+<script type="text/javascript" src="../../h-ui.admin/js/H-ui.admin.page.js"></script> 
+
+<!--/_footer /作为公共模版分离出去-->
+
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript">
+$(function(){
+	
+	$('#parentOrgID').val(parent.curOrg.selectedId);
+	
+	$('#parentOrgName').val(parent.curOrg.selectedName);
+	
+	$.ajax({
+		url : '/system/org/getNewOrg',
+		async : false,
+		type:'get',
+		contentType:'application/json',
+		data:{parentId : parent.curOrg.selectedId, orgLevel:parent.curOrg.selectedLevel},
+		dataType:'json',
+		success : function( maxCodeJSON ){
+			$('#orgCode').val(maxCodeJSON.data);
+		},
+		error : function( errorJSON){
+			parent.location.href="/html/login.html";
+		}
+	});
+});
+
+function f_save(){
+	
+	var orgId = $("#parentOrgID").val();
+	var orgCode = $("#orgCode").val();
+	var orgName = $("#orgName").val().trim();
+	
+	$.ajax({
+		url : '/system/org/putNewOrg',
+		async : false,
+		type:'POST',
+		contentType:'application/json',
+		data : '{\"parentID\":\"'+orgId+'\",\"orgCode\":\"'+orgCode+'\",\"orgName\":\"'+orgName+'\"}',
+		dataType:'json',
+		success : function( msg ){
+			$.Huimodalalert('机构保存成功！',2000);	
+			parent.curOrg.queryOrgs();
+			parent.layer.close( parent.layer.getFrameIndex(window.name) );
+		},
+		error : function( errorJSON){
+			parent.location.href="/html/login.html";
+		}
+	});
+}
+</script>
+<!--/请在上方写此页面业务相关的脚本-->
+</body>
+</html>

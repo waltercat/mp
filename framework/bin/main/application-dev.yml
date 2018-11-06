@@ -1,4 +1,6 @@
  #开发环境配置 dev
+ server: 
+  port: 80 
  logging:
   pattern:
     console: "%clr(%d{HH:mm:ss.SSS}){yellow} %clr(%contextName [%thread]){green} %clr(%-5level){red} %clr(%logger{36} - %msg%n){blue}"
