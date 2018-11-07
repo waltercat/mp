@@ -119,6 +119,7 @@ var curOrg = {
 						success : function( orgJSON ){
 							$(obj).parents("tr").remove();
 							layer.msg('已删除!',{icon:1,time:1000});
+							curOrg.showOrgForTree();
 						},
 						error : function( errorJSON ){}
 				});
@@ -133,7 +134,6 @@ var curOrg = {
 				}
 				
 			});
-			console.log(orgCodes);
 			return orgCodes;
 		},
 		

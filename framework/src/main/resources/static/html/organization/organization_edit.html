@@ -110,6 +110,7 @@ function f_update(){
 		success : function( msg ){
 			$.Huimodalalert('机构更新成功！',2000);	
 			parent.curOrg.queryOrgs();
+			parent.curOrg.showOrgForTree();
 			parent.layer.close( parent.layer.getFrameIndex(window.name) );
 		},
 		error : function( errorJSON){
