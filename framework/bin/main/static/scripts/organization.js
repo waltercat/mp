@@ -80,9 +80,7 @@ var curOrg = {
 				return ;
 				
 			}else{
-				console.log("id="+id);
 				curOrg.editOrgId = id;
-				
 				layer_show(title,url,w,h);
 			}
 			
@@ -200,7 +198,7 @@ var $curTable = $('#table_list_id').dataTable({
     	{data:'orgCode',render:function( data, type, full, meta ){return data}},
     	{data:'orgName',render:function( data, type, full, meta ){return data}},
     	{data:'orgCode',render:function( data, type, full, meta ){
-    		return "<a title=\'编辑\' href=\'javascript:;\' onclick=\'curOrg.org_edit(\"编辑机构\",\"html/organization/organization_edit.html\",\"500\",300,\""+data+"\")\' class=\'ml-5\' style=\'text-decoration:none\'><i class=\'Hui-iconfont\'>&#xe6df;</i></a>"
+    		return "<a title=\'编辑\' href=\'javascript:;\' onclick=\'curOrg.org_edit(\"编辑机构\",\"html/organization/organization_edit.html\",\"500\",300,\""+full.id+"\")\' class=\'ml-5\' style=\'text-decoration:none\'><i class=\'Hui-iconfont\'>&#xe6df;</i></a>"
     		+"<a title=\'删除\' href=\'javascript:;\' onclick=\'curOrg.delOrgByCode(this,\""+data+"\")\' class=\'ml-5\' style=\'text-decoration:none\'><i class=\'Hui-iconfont\'>&#xe6e2;</i></a>";}}
     	
     ],

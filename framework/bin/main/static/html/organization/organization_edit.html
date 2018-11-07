@@ -79,7 +79,7 @@ $(function(){
 		async : false,
 		type:'get',
 		contentType:'application/json',
-// 		data:{id: parent.curOrg.editOrgId},
+// 		data:parent.curOrg.editOrgId,
 		dataType:'json',
 		success : function( orgJSON ){
 			
@@ -89,7 +89,7 @@ $(function(){
 			
 			$('#orgName').val(orgJSON.orgName);
 		},
-		error : function( errorJSON){
+		error : function( errorJSON){console.log(errorJSON);
 			//parent.location.href="/html/login.html";
 		}
 	});
