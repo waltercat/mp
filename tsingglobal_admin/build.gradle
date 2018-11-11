@@ -23,6 +23,11 @@ repositories {
 	maven { url "http://localhost:8081/repository/maven-public/" }
 }
 
+processResources {
+	from('src/main/java') {
+	    include '**/*.xml'
+	}
+}
 
 dependencies {
 	implementation('org.springframework.boot:spring-boot-starter-freemarker')
