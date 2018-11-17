@@ -94,7 +94,7 @@
   
   <!-- 保存用户信息 -->
   <insert id="saveUser"   parameterType="com.tsingglobal.system.user.domain.UserModel" >
-    insert into t_user (id, f_user_code, f_login_name,f_user_name,f_pwd,f_locked,f_org_id)
+    insert into t_user (id, f_user_code, f_user_name,f_login_name,f_pwd,f_locked,f_org_id)
     values (#{id,jdbcType=INTEGER}, 
     #{userCode,jdbcType=VARCHAR},
     #{userName,jdbcType=VARCHAR},
