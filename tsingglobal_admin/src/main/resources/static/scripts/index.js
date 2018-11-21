@@ -7,15 +7,15 @@
 /**
  * 菜单
  */
-
+curPermission.showPermission();
+curPermission.loadPage('首页','indexContent.html');
 /**
  * 当前登录用户
  */
-
 curUser.loadUserFromSession();
 $('#userName').text(curUser.userInfo.userName);
 
-curPermission.showPermission();
+
 /**
  * 系统字典数据
  */
