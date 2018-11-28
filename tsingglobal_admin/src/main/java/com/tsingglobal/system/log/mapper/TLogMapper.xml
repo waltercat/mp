@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tsingglobal.system.log.repository.mybatis.TLogMapper">
+
+    <resultMap id="TLogDTOResultMap" type="com.tsingglobal.system.log.dto.TLogDTO"></resultMap>
+
+    <sql id="selectSQL">
+        select t.id,t.f_org_id,t.f_org_name,t.f_user_id,t.f_user_name,t.f_log_time,t.f_log_name,t.f_log_before,t.f_log_after from t_log t
+    </sql>
+
+    <select id="load" parameterType="Integer" resultMap="TLogDTOResultMap">
+        <include refid="selectSQL"></include>
+        <where>
+            and t.id = #{id,jdbcType=INTEGER}
+        </where>
+    </select>
+
+    <select id="queryList" parameterType="com.tsingglobal.system.log.dto.TLogDTO" resultMap="TLogDTOResultMap">
+        <include refid="selectSQL" />
+        <where>
+
+        </where>
+    </select>
+    
+     <delete id="delete" parameterType="long" >
+	    delete from t_log where id =#{id,jdbcType=INTEGER}
+	  </delete>
+	  
+	  <update id="update" parameterType="com.tsingglobal.system.log.dto.TLogDTO" >
+	  	update t_log 
+	  	set 
+	  	where id= #{id,jdbcType=INTEGER}
+	  </update>
+	  
+	  <insert id="save"   parameterType="com.tsingglobal.system.log.dto.TLogDTO" >
+	    insert into t_log  (id)
+	    values (#{id,jdbcType=INTEGER})
+	  </insert>  
+
+</mapper>

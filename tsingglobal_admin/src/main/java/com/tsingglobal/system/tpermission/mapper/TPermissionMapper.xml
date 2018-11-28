@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tsingglobal.system.tpermission.repository.mybatis.TPermissionMapper">
+
+    <resultMap id="TPermissionDTOResultMap" type="com.tsingglobal.system.tpermission.dto.TPermissionDTO"></resultMap>
+
+    <sql id="selectSQL">
+        select t.id,t.f_parentID,t.f_permission_code,t.f_permission_name,t.f_permission_url,t.f_permission_type,t.f_permission_status,t.f_permission_icon,t.f_permission_order from t_permission t
+    </sql>
+
+    <select id="load" parameterType="Integer" resultMap="TPermissionDTOResultMap">
+        <include refid="selectSQL"></include>
+        <where>
+            and t.id = #{id,jdbcType=INTEGER}
+        </where>
+    </select>
+
+    <select id="queryList" parameterType="com.tsingglobal.system.tpermission.dto.TPermissionDTO" resultMap="TPermissionDTOResultMap">
+        <include refid="selectSQL" />
+        <where>
+
+        </where>
+    </select>
+    
+     <delete id="delete" parameterType="long" >
+	    delete from t_permission where id =#{id,jdbcType=INTEGER}
+	  </delete>
+	  
+	  <update id="update" parameterType="com.tsingglobal.system.tpermission.dto.TPermissionDTO" >
+	  	update t_permission 
+	  	set 
+	  	where id= #{id,jdbcType=INTEGER}
+	  </update>
+	  
+	  <insert id="save"   parameterType="com.tsingglobal.system.tpermission.dto.TPermissionDTO" >
+	    insert into t_permission  (id)
+	    values (#{id,jdbcType=INTEGER})
+	  </insert>  
+
+</mapper>
