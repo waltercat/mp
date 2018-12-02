@@ -29,6 +29,15 @@ public interface BaseRepository<T> {
 	 */
 	public List<T> queryList(Map<String, Object> map);
 	
+	/**
+	 * 
+	    * @Title: 条件查询
+	    * @Description: TODO(按条件查询信息)
+	    * @param t 查询条件对象
+	    * @return List<T>    返回信息
+	 */
+	public List<T> queryList(T t);
+	
 	
 	/**
 	 * 

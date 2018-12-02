@@ -3,6 +3,8 @@ package com.tsingglobal.system.log.dto;
 import java.io.Serializable;
 import java.sql.Time;
 
+import com.tsingglobal.utils.CommonUtil;
+
 /**
 * 描述：质量问题DTO
 * @author Ay
@@ -97,6 +99,10 @@ public class TLogDTO implements Serializable{
 
 	public Time getF_log_time() {
 		return f_log_time;
+	}
+	
+	public String getF_log_time_value() {
+		return CommonUtil.dateToStr(f_log_time);
 	}
 
 

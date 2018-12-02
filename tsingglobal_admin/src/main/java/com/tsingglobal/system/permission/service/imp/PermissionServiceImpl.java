@@ -24,11 +24,15 @@ public class PermissionServiceImpl implements PermissionService {
 		
 		final PermissionModel permission = new PermissionModel();		
 		permission.setPermissionCode(Constants.PERMISSION_ROOT_CODE.substring(0, 2));
+		permission.setParentID(Constants.PERMISSION_ROOT_PARENTID);
+		permission.setPermissionStatus(Constants.PERMISSION_STATUS_OK);
 		
 		List<PermissionModel> permissions = permissionDao.queryPermissions( permission );
 		
+		permission.setPermissionCode(Constants.PERMISSION_ROOT_CODE);
 		permission.setId(Constants.PERMISSION_ROOT_ID);
-		permission.setParentID(Constants.PERMISSION_ROOT_PARENTID);
+		
+		permission.setPermissionType(Constants.PERMISSION_TYPE_MENU);
 		permission.setPermissionName("系统权限");
 		
 		permissions.add( permission );
@@ -36,9 +40,9 @@ public class PermissionServiceImpl implements PermissionService {
 		return permissions;
 	}
 	
-	public List<PermissionModel> queryPermissionByPage() {
+	public List<PermissionModel> queryPermissionByPage( final PermissionModel permission) {
 		
-		return permissionDao.queryPermissions( null );
+		return permissionDao.queryPermissions( permission );
 	}
 	
 	@Transactional(rollbackFor = {Exception.class})
@@ -77,20 +81,38 @@ public class PermissionServiceImpl implements PermissionService {
 			return 0l;
 		}
 		
-		//删除机构下的全部人员。
-		
-		//删除机构
 		this.permissionDao.delPermission(ids);
 		
 		return ids.length;
 	}
-	
-	@Autowired
-	private PermissionDao permissionDao;
 
 	@Override
 	public List<PermissionModel> queryPermissionForTree() {
 		
 		return this.queryPermissionByRoot();
 	}
+
+	@Override
+	public void delPermissionByCode(String[] permissionCodes) {
+
+		String[] strPermissionCodes = this.getPermissionCode(permissionCodes);
+		
+		for( String code : strPermissionCodes) {
+			
+			this.permissionDao.delPermissionByCode( code.split(",") );
+		}
+	}
+	
+	private String[] getPermissionCode( final String[] permissionCodes) {
+		String[] codes = new String[permissionCodes.length];
+		
+		for( int i = 0 ; i < permissionCodes.length ; i++) {
+			
+			codes[i] = CommonUtil.getPermissionCode(permissionCodes[i]);
+		}
+		return codes;
+	}
+	
+	@Autowired
+	private PermissionDao permissionDao;
 }

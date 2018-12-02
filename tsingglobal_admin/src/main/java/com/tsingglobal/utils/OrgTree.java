@@ -7,7 +7,6 @@ import java.util.Map;
 
 import com.alibaba.fastjson.JSONObject;
 import com.tsingglobal.system.org.domain.OrganizationModel;
-import com.tsingglobal.system.org.vo.OrganizationVO;
 
 public class OrgTree extends MultipleTree {
 
@@ -25,12 +24,12 @@ public class OrgTree extends MultipleTree {
 		}
 		
 		Map<Long, Node> nodeMap = new HashMap<Long, Node>();
-		Iterator<OrganizationVO> it = (Iterator<OrganizationVO>) datas.iterator();
+		Iterator<OrganizationModel> it = (Iterator<OrganizationModel>) datas.iterator();
 		while( it.hasNext() ) {
 			
-			OrganizationVO org = it.next();
+			OrganizationModel org = it.next();
 			
-			nodeMap.put( org.getId(), new OrgNode( org.getId() , org.getpId(), org.getName(), org.getOrgCode() ) );
+			nodeMap.put( org.getId(), new OrgNode( org.getId() , org.getParentID(), org.getOrgName(), org.getOrgCode() ) );
 			
 		}
 		

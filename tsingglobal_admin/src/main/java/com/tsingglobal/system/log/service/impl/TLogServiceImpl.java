@@ -5,6 +5,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.tsingglobal.system.log.dto.TLogDTO;
 import com.tsingglobal.utils.SnowflakeIdWorker;
+
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.BeanUtils;
 
 /**
@@ -62,4 +66,16 @@ public class TLogServiceImpl implements ITLogService {
         
         return tLog;
     }
+
+	@Override
+	public List<TLogDTO> listSysLog( final Map<String,Object> map) throws Exception {
+		// TODO Auto-generated method stub queryList
+		return tLogRepository.queryList(map);
+	}
+
+	@Override
+	public void deleteTLogs(Long[] ids) throws Exception {
+		// TODO Auto-generated method stub
+		tLogRepository.deleteBatch(ids);
+	}
   }

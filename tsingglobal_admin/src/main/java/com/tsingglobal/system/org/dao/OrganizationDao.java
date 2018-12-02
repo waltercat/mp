@@ -5,7 +5,6 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.tsingglobal.system.org.domain.OrganizationModel;
-import com.tsingglobal.system.org.vo.OrganizationVO;
 
 @Mapper
 public interface OrganizationDao {
@@ -14,7 +13,7 @@ public interface OrganizationDao {
 	
 	public List<OrganizationModel> queryOrganizations( final OrganizationModel org);
 	
-	public List<OrganizationVO> queryOrganizationsForTree( final OrganizationModel org);
+	public List<OrganizationModel> queryOrganizationsForTree( final OrganizationModel org);
 	
 	public void saveOrganization( final OrganizationModel org);
 	

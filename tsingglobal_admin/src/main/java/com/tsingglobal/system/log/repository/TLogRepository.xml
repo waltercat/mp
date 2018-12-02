@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.tsingglobal.system.log.repository.mybatis.TLogMapper">
+<mapper namespace="com.tsingglobal.system.log.repository.TLogRepository">
 
     <resultMap id="TLogDTOResultMap" type="com.tsingglobal.system.log.dto.TLogDTO"></resultMap>
 
@@ -15,15 +15,27 @@
         </where>
     </select>
 
-    <select id="queryList" parameterType="com.tsingglobal.system.log.dto.TLogDTO" resultMap="TLogDTOResultMap">
+    <select id="queryList" parameterType="java.util.Map" resultMap="TLogDTOResultMap">
         <include refid="selectSQL" />
-        <where>
-
-        </where>
+        where 1=1
+        	<if test="f_log_time_begin != null and f_log_time_begin != ''">
+        		and f_log_time > #{f_log_time_begin}
+        	</if>
+        		
+        	<if test="f_log_time_end != null and f_log_time_end != ''">
+        		and f_log_time &lt; #{f_log_time_end}
+        	</if>
     </select>
     
      <delete id="delete" parameterType="long" >
 	    delete from t_log where id =#{id,jdbcType=INTEGER}
+	  </delete>
+	  
+	  <delete id="deleteBatch" parameterType="Long[]" >
+	  	delete from t_log where id in 
+	  	<foreach collection="array" item="id"  open="(" separator="," close=")">
+	  		#{id}
+	  	</foreach>
 	  </delete>
 	  
 	  <update id="update" parameterType="com.tsingglobal.system.log.dto.TLogDTO" >

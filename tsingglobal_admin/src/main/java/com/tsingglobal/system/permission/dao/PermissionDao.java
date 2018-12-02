@@ -18,4 +18,6 @@ public interface PermissionDao {
 	public void updatePermission( final PermissionModel permission);
 	
 	public void delPermission( final long[] ids);
+
+	public void delPermissionByCode(String[] codes);
 }

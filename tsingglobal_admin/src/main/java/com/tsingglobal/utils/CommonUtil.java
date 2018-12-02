@@ -2,6 +2,9 @@ package com.tsingglobal.utils;
 
 import java.io.PrintWriter;
 import java.security.MessageDigest;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -32,6 +35,16 @@ public class CommonUtil {
 	public static boolean isEmpty(final Object value) {
 
 		return (null == value);
+	}
+	
+	public static String dateToStr( final Date date) {
+		
+		return dateToStr( date, "yyyy-MM-dd HH:mm:ss" );
+	}
+	
+	public static String dateToStr( final Date date, final String pattern) {
+		SimpleDateFormat sdf = new SimpleDateFormat(pattern);
+		return sdf.format(date);
 	}
 
 	/**
@@ -108,6 +121,25 @@ public class CommonUtil {
 			if( orgCode.substring(indexArrays[i]).equals( Constants.ORG_ROOT_CODE.substring(indexArrays[i]))) {
 				
 				return orgCode.substring(0, indexArrays[i]);
+			}
+			
+		}
+		return null;
+	}
+	
+	public static String getPermissionCode( final String permissionCode) {
+		if( CommonUtil.isEmpty(permissionCode) ) {
+			
+			return null;
+		}
+		
+		final int[] indexArrays = {2,4,6,8,10,12,14,16,18,20,22,24,26,28,30,32};
+		
+		for( int i = 0 ; i < indexArrays.length ; i++) {
+			
+			if( permissionCode.substring(indexArrays[i]).equals( Constants.PERMISSION_ROOT_CODE.substring(indexArrays[i]))) {
+				
+				return permissionCode.substring(0, indexArrays[i]);
 			}
 			
 		}

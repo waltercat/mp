@@ -10,7 +10,7 @@ public interface PermissionService {
 	
 	public List<PermissionModel> queryPermissionByRoot() ;
 	
-	public List<PermissionModel> queryPermissionByPage() ;
+	public List<PermissionModel> queryPermissionByPage(final PermissionModel permission) ;
 	
 	public List<PermissionModel> queryPermissionForTree() ;
 	
@@ -19,4 +19,6 @@ public interface PermissionService {
 	public long updatePermission( final PermissionModel org ) ;
 	
 	public long delPermissions( final long[] ids ) ;
+	
+	public void delPermissionByCode(String[] permissionCodes);
 }

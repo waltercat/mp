@@ -3,16 +3,13 @@ package com.tsingglobal.system.org.service.imp;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.tsingglobal.system.org.dao.OrganizationDao;
 import com.tsingglobal.system.org.domain.OrganizationModel;
 import com.tsingglobal.system.org.service.OrganizationService;
-import com.tsingglobal.system.org.vo.OrganizationVO;
 import com.tsingglobal.system.user.dao.UserDao;
-import com.tsingglobal.system.user.service.UserService;
 import com.tsingglobal.utils.CommonUtil;
 import com.tsingglobal.utils.Constants;
 
@@ -118,7 +115,7 @@ public class OrganizationServiceImpl implements OrganizationService {
 	}
 
 	@Override
-	public List<OrganizationVO> queryOrgForTree() {
+	public List<OrganizationModel> queryOrgForTree() {
 
 		OrganizationModel org = new OrganizationModel();
 

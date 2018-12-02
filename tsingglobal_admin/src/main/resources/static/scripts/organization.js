@@ -9,12 +9,15 @@ var setting = {
 			dblClickExpand: false,
 			showLine: false,
 			selectedMulti: false
-		},
+		},		
 		data: {
+			key: {
+				name: "orgName"
+			},
 			simpleData: {
 				enable:true,
 				idKey: "id",
-				pIdKey: "pId",
+				pIdKey: "parentID",
 				rootPId: ""
 			}
 		},

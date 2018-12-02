@@ -46,13 +46,6 @@ public class PermissionModel implements Serializable {
 		this.permissionURL = permissionURL;
 	}
 
-	public String getIcon() {
-		return icon;
-	}
-
-	public void setIcon(String icon) {
-		this.icon = icon;
-	}
 
 	public int getPermissionType() {
 		return permissionType;
@@ -78,6 +71,14 @@ public class PermissionModel implements Serializable {
 		this.order = order;
 	}
 	
+	public String getPermissionIcon() {
+		return permissionIcon;
+	}
+
+	public void setPermissionIcon(String permissionIcon) {
+		this.permissionIcon = permissionIcon;
+	}
+
 	public boolean validateOK() {
 		
 		return !( CommonUtil.isEmpty(permissionCode) || CommonUtil.isEmpty(permissionName) || CommonUtil.isEmpty(permissionURL) );
@@ -88,7 +89,7 @@ public class PermissionModel implements Serializable {
 	@Override
 	public String toString() {
 		return "PermissionModel [id=" + id + ", parentID=" + parentID + ", permissionCode=" + permissionCode
-				+ ", permissionName=" + permissionName + ", permissionURL=" + permissionURL + ", icon=" + icon
+				+ ", permissionName=" + permissionName + ", permissionURL=" + permissionURL + ", permissionIcon=" + permissionIcon
 				+ ", permissionType=" + permissionType + ", permissionStatus=" + permissionStatus + ", order=" + order
 				+ "]";
 	}
@@ -108,7 +109,7 @@ public class PermissionModel implements Serializable {
 	
 	private String permissionURL;
 	
-	private String icon;
+	private String permissionIcon;
 	
 	//权限类型，1=菜单权限 2=按钮权限 3=数据权限（暂不实现）
 	private int permissionType;

@@ -30,7 +30,7 @@ public class PermissionTree extends MultipleTree {
 			PermissionModel permission = it.next();
 			
 			nodeMap.put( permission.getId(), new PermissionNode( permission.getId() , permission.getParentID(), 
-										permission.getPermissionName(), permission.getPermissionURL(), permission.getIcon() ) );
+										permission.getPermissionName(), permission.getPermissionURL(), permission.getPermissionIcon() ) );
 		}
 		
 		return nodeMap;
@@ -46,7 +46,7 @@ public class PermissionTree extends MultipleTree {
 		
 		public String toString() {
 			
-			String result = "{" + "id : '" + id + "'" + ", name : '" + text + "'" + ",icon:'"+((CommonUtil.isEmpty(icon)) ? "" : icon)+"', url:'"+url+"'";
+			String result = "{" + "id : '" + id + "'" +",pId:"+parentId+ ", name : '" + text + "'" + ",icon:'"+((CommonUtil.isEmpty(icon)) ? "" : icon)+"', url:'"+url+"'";
 
 			if (children != null && children.getSize() != 0) {
 				result += ", children : " + children.toString();
@@ -61,6 +61,7 @@ public class PermissionTree extends MultipleTree {
 			
 			JSONObject nodeJSON = new JSONObject();
 			nodeJSON.put("id", id);
+			nodeJSON.put("pId", parentId);
 			nodeJSON.put("name", text);
 			nodeJSON.put("icon", ((CommonUtil.isEmpty(icon)) ? "" : icon));
 			nodeJSON.put("url", url);

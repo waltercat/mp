@@ -8,12 +8,12 @@
     <result column="f_org_name" property="orgName" jdbcType="VARCHAR" />
   </resultMap>
   
-  <resultMap id="TreeResultMap" type="com.tsingglobal.system.org.vo.OrganizationVO" >
-    <id column="id" property="id" jdbcType="INTEGER" />
-    <result column="parent_id" property="pId" jdbcType="INTEGER" />
-    <result column="f_org_code" property="orgCode" jdbcType="VARCHAR" />
-    <result column="f_org_name" property="name" jdbcType="VARCHAR" />
-  </resultMap>
+<!--   <resultMap id="TreeResultMap" type="com.tsingglobal.system.org.vo.OrganizationVO" > -->
+<!--     <id column="id" property="id" jdbcType="INTEGER" /> -->
+<!--     <result column="parent_id" property="pId" jdbcType="INTEGER" /> -->
+<!--     <result column="f_org_code" property="orgCode" jdbcType="VARCHAR" /> -->
+<!--     <result column="f_org_name" property="name" jdbcType="VARCHAR" /> -->
+<!--   </resultMap> -->
   <sql id="Base_Column_List" >
     id, parent_id, f_org_code, f_org_name
   </sql>
@@ -60,7 +60,8 @@
   </select>
   
   <!-- 条件查询组织机构 -->
-  <select id="queryOrganizationsForTree" resultMap="TreeResultMap" parameterType="com.tsingglobal.system.org.vo.OrganizationVO" >
+<!--   <select id="queryOrganizationsForTree" resultMap="TreeResultMap" parameterType="com.tsingglobal.system.org.vo.OrganizationVO" > -->
+<select id="queryOrganizationsForTree" resultMap="BaseResultMap" parameterType="com.tsingglobal.system.org.domain.OrganizationModel" >
     select
     <include refid="Base_Column_List" />
     from t_org
