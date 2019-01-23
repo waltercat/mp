@@ -9,7 +9,7 @@
     <result column="f_permission_url" property="permissionURL" jdbcType="VARCHAR" />
     <result column="f_permission_type" property="permissionType" jdbcType="INTEGER" />
     <result column="f_permission_status" property="permissionStatus" jdbcType="INTEGER" />
-    <result column="f_permission_icon" property="icon" jdbcType="VARCHAR" />
+    <result column="f_permission_icon" property="permissionIcon" jdbcType="VARCHAR" />
     
   </resultMap>
   <sql id="Base_Column_List" >
@@ -29,7 +29,7 @@
     from t_permission
     where 1=1
     
-    <if test=" parentID != 0">
+    <if test=" parentID != -1">
     	and f_parentID = #{parentID}
     </if>
     
@@ -61,26 +61,33 @@
     </foreach>
   </delete>
   
+  <!-- 按编码删除权限 -->
+  <delete id="delPermissionByCode" parameterType="String" >
+    delete from t_permission where f_permission_code like
+    <foreach collection="array" item="id" open="(" separator="," close=")">
+    	<bind name="id%" value="id+ '%'" />
+    	#{id%}
+    </foreach>
+  </delete>
+  
   <!-- 更新权限信息信息 -->
   <update id="updatePermission" parameterType="com.tsingglobal.system.permission.domain.PermissionModel" >
-  	update t_permission set f_org_code=#{orgCode,jdbcType=VARCHAR},f_org_name=#{orgName,jdbcType=VARCHAR}
+  	update t_permission set f_permission_code=#{permissionCode,jdbcType=VARCHAR},f_permission_name=#{permissionName,jdbcType=VARCHAR}
+  	,f_permission_url=#{permissionURL,jdbcType=VARCHAR},f_permission_type=#{permissionType,jdbcType=INTEGER}
+  	,f_permission_status=#{permissionStatus,jdbcType=INTEGER},f_permission_order=#{order,jdbcType=INTEGER}
+  	<if test=" permissionIcon != ''">
+  		,f_permission_icon=#{permissionIcon,jdbcType=VARCHAR}
+  	</if>
+  	
   	where id= #{id,jdbcType=INTEGER}
   </update>
   
   <!-- 保存权限信息信息 -->
   <insert id="savePermission"   parameterType="com.tsingglobal.system.permission.domain.PermissionModel" >
     insert into t_permission (id,f_parentID,f_permission_code,f_permission_name,f_permission_url,
-    f_permission_type,f_permission_status,f_permission_icon,f_permission_order)
-    values (#{id,jdbcType=INTEGER}, #{userCode,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR})
+    f_permission_type,f_permission_status,f_permission_order,f_permission_icon)
+    values (#{id,jdbcType=INTEGER}, #{parentID,jdbcType=INTEGER},#{permissionCode,jdbcType=VARCHAR}, #{permissionName,jdbcType=VARCHAR}
+    , #{permissionURL,jdbcType=VARCHAR}, #{permissionType,jdbcType=INTEGER}, #{permissionStatus,jdbcType=INTEGER}
+    , #{order,jdbcType=INTEGER}, #{permissionIcon,jdbcType=VARCHAR})
   </insert>  
-  
-  <insert id="insertOrgs"   parameterType="java.util.List" >
-    insert into t_user (id, f_usercode, f_username, f_name,f_pwd,f_locked)
-    values
-    <foreach collection="list" item="org"  index="index" separator=","> 
-	    (#{org.id,jdbcType=INTEGER}, 
-	    #{org.orgCode,jdbcType=VARCHAR}, 
-	    #{org.orgName,jdbcType=VARCHAR})
-      </foreach>
-  </insert>
 </mapper>

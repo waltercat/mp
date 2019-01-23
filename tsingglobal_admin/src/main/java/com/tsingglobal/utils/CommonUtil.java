@@ -2,8 +2,8 @@ package com.tsingglobal.utils;
 
 import java.io.PrintWriter;
 import java.security.MessageDigest;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
@@ -14,6 +14,10 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import com.alibaba.fastjson.JSONObject;
+import com.tsingglobal.TsingglobalAdminApplication;
+import com.tsingglobal.system.log.dto.TLogDTO;
+import com.tsingglobal.system.log.service.ITLogService;
+import com.tsingglobal.system.user.domain.UserModel;
 
 public class CommonUtil {
 	
@@ -202,6 +206,46 @@ public class CommonUtil {
 		return code;
 	}
 	
+	public static void log(final String module, final String op) throws Exception {
+		
+		log( module, op , null);
+	}
+	
+	public static void log(final String module, final String op, final String userName) throws Exception {
+		
+		TLogDTO logDTO = new TLogDTO();
+		
+		logDTO.setId( CommonUtil.genarateID() );
+		
+		logDTO.setF_org_id(0);
+		
+		logDTO.setF_org_name("");
+		
+		logDTO.setF_user_id(0);
+		
+		logDTO.setF_user_name( (CommonUtil.isEmpty(userName)) ? CommonUtil.getCurUser().getUserName() : userName );
+		
+		logDTO.setF_log_time( new java.sql.Time(Calendar.getInstance().getTimeInMillis()));
+		
+		logDTO.setF_log_name(module);
+		
+		logDTO.setF_log_before(op);
+		
+//		tLogService.saveTLog(logDTO);
+		
+		TsingglobalAdminApplication.cac.getBean(ITLogService.class).saveTLog(logDTO);
+	}
+	
+	public static UserModel getCurUser() {
+		
+		if( null == CommonUtil.getRequest().getSession().getAttribute("curUser") ) {
+			
+			return null;
+		}
+		
+		return (UserModel)CommonUtil.getRequest().getSession().getAttribute("curUser");
+	}
+	
 //	public static void main(String[] args) {
 //		
 //		final String orgCode ="01010001000100000000000000000000";
@@ -210,4 +254,6 @@ public class CommonUtil {
 //		
 //	}
 
+//	@Autowired
+//    private static ITLogService tLogService;
 }

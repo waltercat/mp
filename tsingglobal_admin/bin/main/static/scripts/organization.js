@@ -9,12 +9,15 @@ var setting = {
 			dblClickExpand: false,
 			showLine: false,
 			selectedMulti: false
-		},
+		},		
 		data: {
+			key: {
+				name: "orgName"
+			},
 			simpleData: {
 				enable:true,
 				idKey: "id",
-				pIdKey: "pId",
+				pIdKey: "parentID",
 				rootPId: ""
 			}
 		},
@@ -109,6 +112,11 @@ var curOrg = {
 		//deleteOrgByCode
 		delOrgByCode : function( obj, orgCode ){
 			layer.confirm('确认要删除吗？',function(index){
+					if( orgCode == undefined ){
+						orgCode = curOrg.getCheckedOrg();
+					}
+					
+					console.log(orgCode);
 					$.ajax({
 						url : curOrg.deleteOrgByCodeURL,
 						async : false,
@@ -146,6 +154,11 @@ var curOrg = {
 				}
 				
 			});
+			
+			if( "" == orgCodes ){
+				
+				orgCodes = curOrg.selectedCode;
+			}
 			return orgCodes;
 		},
 		

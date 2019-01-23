@@ -41,13 +41,11 @@ public class TLogServiceImpl implements ITLogService {
         	return null;
         }
         
-        TLogDTO tLog = new TLogDTO();
+        tLogDTO.setId(new SnowflakeIdWorker(0, 0).nextId());
         
-        tLog.setId(new SnowflakeIdWorker(0, 0).nextId());
+        tLogRepository.save( tLogDTO );
         
-        tLogRepository.save( tLog );
-        
-        return loadTLog( tLog.getId() );
+        return loadTLog( tLogDTO.getId() );
     }
 
     @Override

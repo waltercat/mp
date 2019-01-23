@@ -25,7 +25,6 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.tsingglobal.system.log.dto.TLogDTO;
 import com.tsingglobal.system.log.service.ITLogService;
-import com.tsingglobal.system.org.domain.OrganizationModel;
 import com.tsingglobal.utils.CommonUtil;
 import com.tsingglobal.utils.IntegerValueFilter;
 

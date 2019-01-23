@@ -146,6 +146,8 @@ public class UserController {
 			
 			if( CommonUtil.isEmpty(user) || CommonUtil.isEmpty(user.getLoginName()) || CommonUtil.isEmpty(user.getPassword()) ) {
 				
+				CommonUtil.log("登录", "登录失败！",user.getLoginName());
+				
 				CommonUtil.error(response, "缺少登录用户信息！");
 				
 				return ;
@@ -157,6 +159,7 @@ public class UserController {
 			
 			if( users == null || users.size() != 1) {
 				
+				CommonUtil.log("登录", "登录失败！缺少登录用户信息！",user.getLoginName());
 				CommonUtil.error(response, "缺少登录用户信息！");
 				
 				return ;
@@ -165,6 +168,8 @@ public class UserController {
 			curUser =  users.get(0);
 			
 			request.getSession().setAttribute( "curUser", curUser );			
+			
+			CommonUtil.log("登录", curUser.getUserName()+"登录成功！");
 		}
 		
 		CommonUtil.sendJsonData(response, JSON.toJSONString(curUser));
@@ -181,5 +186,5 @@ public class UserController {
 
 	@Autowired
 	@Qualifier("userService")
-	private UserService userService;
+	private UserService userService;		
 }
